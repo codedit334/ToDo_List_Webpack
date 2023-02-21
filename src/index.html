@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="author" content="Oussama @codedit334">
+  <meta name="description" content="ToDo List using webpack">
+  <meta name="description" content="Todo, webpack, ES6">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+
+<body>
+  <main>
+
+    <form>
+      <div class="title_wrapper">
+        <h1 class="todo_title">Today's To Do</h1>
+        <img src="" id="refreshImg" alt="">
+      </div>
+      <div class="data_input_wrapper">
+        <input type="text" placeholder="todo" class="data_input">
+        <img src="" id="enter" alt="enter">
+      </div>
+      <ul class="todo_list">
+       
+      </ul>
+
+      <input type="submit"  hidden value="">
+
+      <button class="clear_completed">Clear Completed</button>
+    </form>
+  </main>
+</body>
+
+</html>
