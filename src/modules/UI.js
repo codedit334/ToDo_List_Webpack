@@ -2,6 +2,7 @@
 
 import Todo from './todo.js';
 import sortArray from '../../node_modules/sort-array/dist/index.mjs';
+import preValidate from './completed.js';
 
 const dataInput = document.querySelector('.data_input');
 const todoList = document.querySelector('.todo_list');
@@ -24,6 +25,23 @@ export default class UI {
     });
     localStorage.setItem('todoItems', JSON.stringify(filterTodoItems));
     window.location.reload();
+  }
+
+  static isChecked(check) {
+    if (check === true) return 'checked';
+    return 'notChecked';
+  }
+
+  static check() {
+    todoItems = this.getItems();
+
+    todoItems.forEach((elem) => {
+      if (elem.completed == true) {
+        document.querySelector(
+          `[data-id="${elem.index}"] > .todo_check`,
+        ).checked = true;
+      }
+    });
   }
 
   static displayItems() {
@@ -56,7 +74,6 @@ export default class UI {
 
   static deleteItem(e) {
     const dataId = e.target.parentElement.getAttribute('data-id');
-    console.log('id', dataId);
     this.filterByID(dataId);
   }
 
@@ -72,9 +89,27 @@ export default class UI {
     window.location.reload();
   }
 
-  static clearCompleted(e) {
-    const dataID = e.closest('li').getAttribute('data-id');
-    this.filterByID(dataID);
+  static clearCompleted() {
+    todoItems = this.getItems();
+
+    todoItems = todoItems.filter((elem) => (elem.completed !== true));
+    let count = 1;
+    todoItems.forEach((elem) => {
+      elem.index = count;
+      count += count;
+    });
+
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+    window.location.reload();
+  }
+
+  static validate(e) {
+    const isValid = e.target.parentElement.getAttribute('data-valid');
+
+    todoItems = this.getItems();
+    if (isValid == 'false') {
+      preValidate(true, e, todoItems);
+    } else preValidate(false, e, todoItems);
   }
 
   // end

@@ -5,6 +5,7 @@ import './styles/index.css';
 
 // Display items
 UI.displayItems();
+UI.check();
 displayImages();
 
 // UI interaction
@@ -35,7 +36,14 @@ document
   .querySelector('.clear_completed')
   .addEventListener('click', (event) => {
     event.preventDefault();
-    document.querySelectorAll('.todo_check:checked').forEach((element) => {
-      UI.clearCompleted(element);
+    document.querySelectorAll('.todo_check:checked').forEach(() => {
+      UI.clearCompleted();
     });
   });
+
+// Make completed
+document.querySelectorAll('.todo_check').forEach((elem) => {
+  elem.addEventListener('change', (event) => {
+    UI.validate(event);
+  });
+});
