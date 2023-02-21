@@ -158,7 +158,7 @@ To check for js errors run:
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- Add remove button.
+- Make it interactive.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
