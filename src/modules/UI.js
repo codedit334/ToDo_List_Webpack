@@ -26,6 +26,23 @@ export default class UI {
     window.location.reload();
   }
 
+  static isChecked(check) {
+    if (check === true) return 'checked';
+    return 'notChecked';
+  }
+
+  static check() {
+    todoItems = this.getItems();
+
+    todoItems.forEach((elem) => {
+      if (elem.completed == true) {
+        document.querySelector(
+          `[data-id="${elem.index}"] > .todo_check`,
+        ).checked = true;
+      }
+    });
+  }
+
   static displayItems() {
     todoItems = this.getItems();
     const sortedArray = sortArray(todoItems, {
@@ -56,7 +73,6 @@ export default class UI {
 
   static deleteItem(e) {
     const dataId = e.target.parentElement.getAttribute('data-id');
-    console.log('id', dataId);
     this.filterByID(dataId);
   }
 
@@ -75,6 +91,32 @@ export default class UI {
   static clearCompleted(e) {
     const dataID = e.closest('li').getAttribute('data-id');
     this.filterByID(dataID);
+  }
+
+  static preValidate(valid, e) {
+    const dataId = e.target.parentElement.getAttribute('data-id');
+
+    e.target.parentElement.setAttribute('data-valid', valid);
+
+    todoItems = this.getItems();
+    todoItems.find((elem) => {
+      let i;
+      if (elem.index == dataId) {
+        elem.completed = valid;
+        i = 1;
+      } else i = 0;
+      return i;
+    });
+
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+  }
+
+  static validate(e) {
+    const isValid = e.target.parentElement.getAttribute('data-valid');
+
+    if (isValid == 'false') {
+      this.preValidate(true, e);
+    } else this.preValidate(false, e);
   }
 
   // end
