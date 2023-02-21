@@ -91,7 +91,14 @@ export default class UI {
 
   static clearCompleted() {
     todoItems = this.getItems();
-    todoItems = todoItems.filter((elem) => elem.completed != true);
+
+    todoItems = todoItems.filter((elem) => (elem.completed !== true));
+    let count = 1;
+    todoItems.forEach((elem) => {
+      elem.index = count;
+      count += count;
+    });
+
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
     window.location.reload();
   }
