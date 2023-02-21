@@ -1,26 +1,33 @@
+/* eslint-disable eqeqeq */
+
+import Todo from './todo.js';
 import sortArray from '../../node_modules/sort-array/dist/index.mjs';
 
+const dataInput = document.querySelector('.data_input');
 const todoList = document.querySelector('.todo_list');
 
-let todoItems = [
-  {
-    description: 'ToDo 1',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'ToDo 2',
-    completed: false,
-    index: 3,
-  },
-  {
-    description: 'ToDo 3',
-    completed: false,
-    index: 2,
-  },
-];
+let todoItems = [];
+
 export default class UI {
+  static getItems() {
+    todoItems = JSON.parse(localStorage.getItem('todoItems'));
+    if (todoItems) return todoItems;
+    return [];
+  }
+
+  static filterByID(ID) {
+    todoItems = this.getItems();
+
+    const filterTodoItems = todoItems.filter((element) => element.index != ID);
+    filterTodoItems.forEach((element) => {
+      if (element.index > ID) element.index -= 1;
+    });
+    localStorage.setItem('todoItems', JSON.stringify(filterTodoItems));
+    window.location.reload();
+  }
+
   static displayItems() {
+    todoItems = this.getItems();
     const sortedArray = sortArray(todoItems, {
       by: 'openIssues',
     });
@@ -35,4 +42,40 @@ export default class UI {
       });
     }
   }
+
+  static storeItem() {
+    if (dataInput.value.length > 0) {
+      todoItems = this.getItems();
+
+      const todoItem = new Todo(dataInput.value, false, todoItems.length + 1);
+
+      todoItems.push(todoItem);
+      localStorage.setItem('todoItems', JSON.stringify(todoItems));
+    }
+  }
+
+  static deleteItem(e) {
+    const dataId = e.target.parentElement.getAttribute('data-id');
+    console.log('id', dataId);
+    this.filterByID(dataId);
+  }
+
+  static changeItem(e, val) {
+    const dataId = e.target.parentElement.getAttribute('data-id');
+
+    todoItems = this.getItems();
+
+    todoItems.forEach((elm) => {
+      if (+elm.index === +dataId) elm.description = val;
+    });
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+    window.location.reload();
+  }
+
+  static clearCompleted(e) {
+    const dataID = e.closest('li').getAttribute('data-id');
+    this.filterByID(dataID);
+  }
+
+  // end
 }
