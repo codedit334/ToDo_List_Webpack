@@ -47,9 +47,17 @@ export default class UI {
   static displayItems() {
     todoItems = this.getItems();
     const sortedArray = sortArray(todoItems, {
-      by: 'openIssues',
+      by: 'index',
     });
     todoItems = sortedArray;
+
+    let count = 1;
+    for (let i = 0; i < todoItems.length; i += 1) {
+      todoItems[i].index = count;
+      count += 1;
+    }
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+
     if (todoItems != null) {
       todoList.innerHTML = '';
       todoItems.forEach((element) => {
@@ -92,12 +100,7 @@ export default class UI {
   static clearCompleted() {
     todoItems = this.getItems();
 
-    todoItems = todoItems.filter((elem) => (elem.completed !== true));
-    let count = 1;
-    todoItems.forEach((elem) => {
-      elem.index = count;
-      count += count;
-    });
+    todoItems = todoItems.filter((elem) => elem.completed !== true);
 
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
     window.location.reload();

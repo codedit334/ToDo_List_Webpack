@@ -4,7 +4,6 @@ export default function preValidate(valid, e, arr) {
   const dataId = e.target.parentElement.getAttribute('data-id');
 
   e.target.parentElement.setAttribute('data-valid', valid);
-
   const todoItems = arr;
   todoItems.find((elem) => {
     let i;
