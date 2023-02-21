@@ -36,8 +36,8 @@ document
   .querySelector('.clear_completed')
   .addEventListener('click', (event) => {
     event.preventDefault();
-    document.querySelectorAll('.todo_check:checked').forEach((element) => {
-      UI.clearCompleted(element);
+    document.querySelectorAll('.todo_check:checked').forEach(() => {
+      UI.clearCompleted();
     });
   });
 

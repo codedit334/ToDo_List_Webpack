@@ -89,9 +89,11 @@ export default class UI {
     window.location.reload();
   }
 
-  static clearCompleted(e) {
-    const dataID = e.closest('li').getAttribute('data-id');
-    this.filterByID(dataID);
+  static clearCompleted() {
+    todoItems = this.getItems();
+    todoItems = todoItems.filter((elem) => elem.completed == 'true');
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
+    window.location.reload();
   }
 
   static validate(e) {
