@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 
 import Todo from './todo.js';
-import sortArray from '../../node_modules/sort-array/dist/index.mjs';
+import sortArray from './sort-array/dist/index.mjs';
 import preValidate from './completed.js';
 
 const dataInput = document.querySelector('.data_input');
@@ -51,6 +51,7 @@ export default class UI {
     });
     todoItems = sortedArray;
 
+    // Reorder
     let count = 1;
     for (let i = 0; i < todoItems.length; i += 1) {
       todoItems[i].index = count;
@@ -58,6 +59,7 @@ export default class UI {
     }
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
 
+    // Render HTML
     if (todoItems != null) {
       todoList.innerHTML = '';
       todoItems.forEach((element) => {
