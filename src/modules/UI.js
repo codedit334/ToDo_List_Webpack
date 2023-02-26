@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 
 import Todo from './todo.js';
-import sortArray from '../../node_modules/sort-array/dist/index.mjs';
+import sortArray from './sort-array/dist/index.mjs';
 import preValidate from './completed.js';
 
 const dataInput = document.querySelector('.data_input');
