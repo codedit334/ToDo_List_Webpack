@@ -12,8 +12,9 @@ let todoItems = [];
 export default class UI {
   static getItems() {
     todoItems = JSON.parse(localStorage.getItem('todoItems'));
-    if (todoItems) return todoItems;
-    return [];
+    // if (todoItems) return todoItems;
+    // return [];
+    return todoItems || [];
   }
 
   static filterByID(ID) {
@@ -108,13 +109,13 @@ export default class UI {
     window.location.reload();
   }
 
-  static validate(e) {
-    const isValid = e.target.parentElement.getAttribute('data-valid');
+  static validate(event) {
+    const isValid = event.target.parentElement.getAttribute('data-valid');
 
     todoItems = this.getItems();
     if (isValid == 'false') {
-      preValidate(true, e, todoItems);
-    } else preValidate(false, e, todoItems);
+      preValidate(true, event, todoItems);
+    } else preValidate(false, event, todoItems);
   }
 
   // end
