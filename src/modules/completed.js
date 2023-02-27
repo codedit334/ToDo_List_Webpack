@@ -1,9 +1,9 @@
 /* eslint-disable eqeqeq */
 
-export default function preValidate(valid, e, arr) {
-  const dataId = e.target.parentElement.getAttribute('data-id');
+export default function preValidate(valid, event, arr) {
+  const dataId = event.target.parentElement.getAttribute('data-id');
 
-  e.target.parentElement.setAttribute('data-valid', valid);
+  event.target.parentElement.setAttribute('data-valid', valid);
   const todoItems = arr;
   todoItems.find((elem) => {
     let i;
