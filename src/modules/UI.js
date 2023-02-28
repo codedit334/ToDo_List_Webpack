@@ -1,8 +1,7 @@
-/* eslint-disable eqeqeq */
+import displayImages from './images.js';
 
 import Todo from './todo.js';
 import sortArray from './sort-array/dist/index.mjs';
-import preValidate from './completed.js';
 
 const dataInput = document.querySelector('.data_input');
 const todoList = document.querySelector('.todo_list');
@@ -12,20 +11,18 @@ let todoItems = [];
 export default class UI {
   static getItems() {
     todoItems = JSON.parse(localStorage.getItem('todoItems'));
-    // if (todoItems) return todoItems;
-    // return [];
     return todoItems || [];
   }
 
   static filterByID(ID) {
     todoItems = this.getItems();
 
-    const filterTodoItems = todoItems.filter((element) => element.index != ID);
+    const filterTodoItems = todoItems.filter((element) => +element.index !== +ID);
     filterTodoItems.forEach((element) => {
       if (element.index > ID) element.index -= 1;
     });
     localStorage.setItem('todoItems', JSON.stringify(filterTodoItems));
-    window.location.reload();
+    this.displayItems();
   }
 
   static isChecked(check) {
@@ -37,7 +34,7 @@ export default class UI {
     todoItems = this.getItems();
 
     todoItems.forEach((elem) => {
-      if (elem.completed == true) {
+      if (elem.completed === true) {
         document.querySelector(
           `[data-id="${elem.index}"] > .todo_check`,
         ).checked = true;
@@ -61,7 +58,7 @@ export default class UI {
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
 
     // Render HTML
-    if (todoItems != null) {
+    if (todoItems) {
       todoList.innerHTML = '';
       todoItems.forEach((element) => {
         todoList.innerHTML += ` <li data-id="${element.index}" data-valid="${element.completed}"><input type="checkbox"  class="todo_check" />
@@ -70,6 +67,8 @@ export default class UI {
               </li>`;
       });
     }
+    this.check();
+    displayImages();
   }
 
   static storeItem() {
@@ -106,16 +105,33 @@ export default class UI {
     todoItems = todoItems.filter((elem) => elem.completed !== true);
 
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
-    window.location.reload();
+    this.displayItems();
+  }
+
+  static preValidate(valid, event) {
+    const dataId = event.target.parentElement.getAttribute('data-id');
+
+    event.target.parentElement.setAttribute('data-valid', valid);
+    const todoItems = this.getItems();
+    todoItems.find((elem) => {
+      let i;
+      if (+elem.index === +dataId) {
+        elem.completed = valid;
+        i = 1;
+      } else i = 0;
+      return i;
+    });
+
+    localStorage.setItem('todoItems', JSON.stringify(todoItems));
   }
 
   static validate(event) {
     const isValid = event.target.parentElement.getAttribute('data-valid');
 
     todoItems = this.getItems();
-    if (isValid == 'false') {
-      preValidate(true, event, todoItems);
-    } else preValidate(false, event, todoItems);
+    if (isValid === 'false') {
+      this.preValidate(true, event);
+    } else this.preValidate(false, event);
   }
 
   // end

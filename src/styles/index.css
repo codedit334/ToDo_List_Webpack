@@ -101,6 +101,8 @@ form > * {
 }
 
 .clear_completed {
+  position: relative;
+  z-index: 2000;
   width: 100%;
   height: 45px;
   background-color: #f8f8f8;
@@ -111,6 +113,11 @@ form > * {
 
 .clear_completed:hover {
   text-decoration: underline;
+}
+
+#refreshImg {
+  position: relative;
+  z-index: 2000;
 }
 
 /* Linter */
