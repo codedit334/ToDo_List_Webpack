@@ -3,18 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "jest": {
-    "moduleNameMapper": {
-      ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "identity-obj-proxy"
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "/src"
-    ],
-    "collectCoverageFrom": [
-      "src/modules/sort-array/dist/{!(index),}.mjs"
-    ]
-  },
   "scripts": {
     "test": "jest --env=jsdom",
     "build": "webpack",
@@ -51,6 +39,8 @@
   },
   "dependencies": {
     "jest-environment-jsdom": "^29.4.3",
-    "sort-array": "^4.1.5"
+    "lodash": "^4.17.21",
+    "sort-array": "^4.1.5",
+    "uuid": "^9.0.0"
   }
 }

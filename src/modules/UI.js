@@ -1,11 +1,7 @@
 /* istanbul ignore file */
-// import displayImages from './images.js';
+import displayImages from './images.js';
 import Todo from './todo.js';
-// import {sortArray} from './sort-array/dist/index.mjs';
-const sortArray = require('sort-array');
-
-// const dataInput = document.querySelector(".data_input");
-// const todoList = document.querySelector('.todo_list');
+const sortArray = require("sort-array/dist");
 
 let todoItems = [];
 
@@ -68,7 +64,7 @@ export default class UI {
       todoItems.forEach((element) => {
         todoList.innerHTML += ` <li data-id="${element.index}" data-valid="${element.completed}"><input type="checkbox"  class="todo_check" />
                 <input type="text" value="${element.description}"class="todo_input" />
-                <img src="" class="trashImg" alt="trash" />
+                <i class="fa-light fa-trash fa-2xl trashImg"></i>
               </li>`;
       });
     }
