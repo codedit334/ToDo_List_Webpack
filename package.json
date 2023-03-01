@@ -3,6 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "jest": {
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|svg|ttf|woff|woff2)$": "identity-obj-proxy"
+    },
+    "moduleDirectories": [
+      "node_modules",
+      "/src"
+    ],
+    "collectCoverageFrom": [
+      "src/modules/sort-array/dist/{!(index),}.mjs"
+    ]
+    
+  },
   "scripts": {
     "test": "jest --env=jsdom",
     "build": "webpack",
@@ -14,7 +27,7 @@
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-modules-commonjs": "^7.21.2",
-    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-env": "^7.20.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.3",
     "css-loader": "^6.7.1",
@@ -23,6 +36,7 @@
     "eslint-plugin-import": "^2.27.5",
     "hint": "^2.0.0",
     "html-webpack-plugin": "^5.5.0",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^29.4.3",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
