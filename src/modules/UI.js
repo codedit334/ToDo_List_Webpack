@@ -1,18 +1,20 @@
-import displayImages from "./images.js";
+// import displayImages from "./images.js";
 import Todo from "./todo.js";
-import sortArray from "./sort-array/dist/index.mjs";
+// import sortArray from "./sort-array/dist/index.mjs";
 
-const dataInput = document.querySelector(".data_input");
+// const dataInput = document.querySelector(".data_input");
 const todoList = document.querySelector(".todo_list");
 
 let todoItems = [];
 
 export default class UI {
+  // This
   static getItems() {
     todoItems = JSON.parse(localStorage.getItem("todoItems"));
     return todoItems || [];
   }
 
+  // This
   static filterByID(ID) {
     todoItems = this.getItems();
 
@@ -70,7 +72,10 @@ export default class UI {
     displayImages();
   }
 
+  // This
   static storeItem() {
+    const dataInput = document.querySelector(".data_input");
+
     if (dataInput.value.length > 0) {
       todoItems = this.getItems();
 
@@ -78,9 +83,11 @@ export default class UI {
 
       todoItems.push(todoItem);
       localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      return todoItems;
     }
   }
 
+  // This
   static deleteItem(e) {
     const dataId = e.target.parentElement.getAttribute("data-id");
     this.filterByID(dataId);
@@ -113,7 +120,7 @@ export default class UI {
     event.target.parentElement.setAttribute("data-valid", valid);
     const todoItems = this.getItems();
     todoItems.find((elem) => {
-      if (+elem.index === +dataId) return elem.completed = valid;
+      if (+elem.index === +dataId) return (elem.completed = valid);
     });
 
     localStorage.setItem("todoItems", JSON.stringify(todoItems));
