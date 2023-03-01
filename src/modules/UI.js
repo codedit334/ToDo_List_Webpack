@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 import displayImages from './images.js';
 import Todo from './todo.js';
-import {sortArray} from './sort-array/dist/index.mjs';
-// const sortArray = require('sort-array');
+// import {sortArray} from './sort-array/dist/index.mjs';
+const sortArray = require('sort-array');
 
 // const dataInput = document.querySelector(".data_input");
 const todoList = document.querySelector('.todo_list');
