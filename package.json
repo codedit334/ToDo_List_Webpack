@@ -14,7 +14,6 @@
     "collectCoverageFrom": [
       "src/modules/sort-array/dist/{!(index),}.mjs"
     ]
-    
   },
   "scripts": {
     "test": "jest --env=jsdom",
