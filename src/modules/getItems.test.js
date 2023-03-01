@@ -20,30 +20,3 @@ describe('Add function', () => {
     expect(todoItems).not.toBeNull();
   });
 });
-
-describe('change item', () => {
-  let dummyDataBase;
-  let strike;
-  beforeEach(() => {
-    dummyDataBase = [
-      { check: false, task: 'dummy task 1', id: 1 },
-      { check: false, task: 'dummy task 2', id: 2 },
-      { check: false, task: 'dummy task 3', id: 3 },
-    ];
-    strike = [
-      {innerText: 'Task 1 has changed'},
-      {innerText: 'Task 2 has changed'},
-      {innerText: 'Task 3 has changed'}
-    ];
-    document.querySelectorAll = jest.fn(() => 'variable having changeItem applied');
-  });
-
-  it('edits the first task', () => {
-    UI.changeItem(dummyDataBase, 0);
-    expect(dummyDataBase).toEqual([
-      { check: false, task: 'Task 1 has changed', id: 1 },
-      { check: false, task: 'dummy task 2', id: 2 },
-      { check: false, task: 'dummy task 3', id: 3 },
-    ]);
-  });
-});

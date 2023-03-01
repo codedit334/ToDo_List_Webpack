@@ -26,6 +26,7 @@ export default class UI {
 
     localStorage.setItem('todoItems', JSON.stringify(filterTodoItems));
     this.displayItems();
+    return todoItems;
   }
 
   static isChecked(check) {
@@ -46,6 +47,7 @@ export default class UI {
   }
 
   static displayItems() {
+    const todoList = document.querySelector('.todo_list');
     todoItems = this.getItems();
     const sortedArray = sortArray(todoItems, {
       by: 'index',
@@ -59,7 +61,7 @@ export default class UI {
       count += 1;
     }
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
-
+    
     // Render HTML
     if (todoItems) {
       todoList.innerHTML = '';
@@ -71,7 +73,7 @@ export default class UI {
       });
     }
     this.check();
-    displayImages();
+    // displayImages();
   }
 
   // This
@@ -91,7 +93,7 @@ export default class UI {
   }
 
   // This
-  static deleteItem(e) {
+  static deleteItem = (e) => {
     const dataId = e.target.parentElement.getAttribute('data-id');
     this.filterByID(dataId);
   }
