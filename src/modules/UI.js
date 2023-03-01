@@ -1,11 +1,11 @@
 /* istanbul ignore file */
-import displayImages from './images.js';
+// import displayImages from './images.js';
 import Todo from './todo.js';
 // import {sortArray} from './sort-array/dist/index.mjs';
 const sortArray = require('sort-array');
 
 // const dataInput = document.querySelector(".data_input");
-const todoList = document.querySelector('.todo_list');
+// const todoList = document.querySelector('.todo_list');
 
 let todoItems = [];
 
@@ -61,7 +61,7 @@ export default class UI {
       count += 1;
     }
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
-    
+
     // Render HTML
     if (todoItems) {
       todoList.innerHTML = '';
