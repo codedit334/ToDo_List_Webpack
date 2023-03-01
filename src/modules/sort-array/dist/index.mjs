@@ -420,4 +420,4 @@ function getCompareFunc (options = {}) {
   }
 }
 
-export default sortArray;
+module.exports = sortArray;

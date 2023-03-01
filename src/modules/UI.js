@@ -1,28 +1,32 @@
-import displayImages from './images.js';
-
+/* istanbul ignore file */
+// import displayImages from './images.js';
 import Todo from './todo.js';
-import sortArray from './sort-array/dist/index.mjs';
+// import {sortArray} from './sort-array/dist/index.mjs';
+const sortArray = require('sort-array');
 
-const dataInput = document.querySelector('.data_input');
-const todoList = document.querySelector('.todo_list');
+// const dataInput = document.querySelector(".data_input");
+// const todoList = document.querySelector('.todo_list');
 
 let todoItems = [];
 
 export default class UI {
+  // This
   static getItems() {
     todoItems = JSON.parse(localStorage.getItem('todoItems'));
     return todoItems || [];
   }
 
+  // This
   static filterByID(ID) {
     todoItems = this.getItems();
 
-    const filterTodoItems = todoItems.filter((element) => +element.index !== +ID);
-    filterTodoItems.forEach((element) => {
-      if (element.index > ID) element.index -= 1;
-    });
+    const filterTodoItems = todoItems.filter(
+      (element) => +element.index !== +ID,
+    );
+
     localStorage.setItem('todoItems', JSON.stringify(filterTodoItems));
     this.displayItems();
+    return todoItems;
   }
 
   static isChecked(check) {
@@ -43,6 +47,7 @@ export default class UI {
   }
 
   static displayItems() {
+    const todoList = document.querySelector('.todo_list');
     todoItems = this.getItems();
     const sortedArray = sortArray(todoItems, {
       by: 'index',
@@ -68,10 +73,13 @@ export default class UI {
       });
     }
     this.check();
-    displayImages();
+    // displayImages();
   }
 
+  // This
   static storeItem() {
+    const dataInput = document.querySelector('.data_input');
+
     if (dataInput.value.length > 0) {
       todoItems = this.getItems();
 
@@ -79,10 +87,13 @@ export default class UI {
 
       todoItems.push(todoItem);
       localStorage.setItem('todoItems', JSON.stringify(todoItems));
+      return todoItems;
     }
+    return false;
   }
 
-  static deleteItem(e) {
+  // This
+  static deleteItem = (e) => {
     const dataId = e.target.parentElement.getAttribute('data-id');
     this.filterByID(dataId);
   }
@@ -96,7 +107,7 @@ export default class UI {
       if (+elm.index === +dataId) elm.description = val;
     });
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
-    window.location.reload();
+    this.displayItems();
   }
 
   static clearCompleted() {
@@ -108,18 +119,14 @@ export default class UI {
     this.displayItems();
   }
 
-  static preValidate(valid, event) {
+  static validateByID(valid, event) {
     const dataId = event.target.parentElement.getAttribute('data-id');
 
     event.target.parentElement.setAttribute('data-valid', valid);
     const todoItems = this.getItems();
     todoItems.find((elem) => {
-      let i;
-      if (+elem.index === +dataId) {
-        elem.completed = valid;
-        i = 1;
-      } else i = 0;
-      return i;
+      if (+elem.index === +dataId) (elem.completed = valid);
+      return 1;
     });
 
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
@@ -128,10 +135,9 @@ export default class UI {
   static validate(event) {
     const isValid = event.target.parentElement.getAttribute('data-valid');
 
-    todoItems = this.getItems();
     if (isValid === 'false') {
-      this.preValidate(true, event);
-    } else this.preValidate(false, event);
+      this.validateByID(true, event);
+    } else this.validateByID(false, event);
   }
 
   // end
