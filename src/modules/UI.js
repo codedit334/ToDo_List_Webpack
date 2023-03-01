@@ -1,18 +1,16 @@
-/* istanbul ignore file */
-import displayImages from './images.js';
+// import displayImages from './images.js';
 import Todo from './todo.js';
+
 const sortArray = require("sort-array/dist");
 
 let todoItems = [];
 
 export default class UI {
-  // This
   static getItems() {
     todoItems = JSON.parse(localStorage.getItem('todoItems'));
     return todoItems || [];
   }
 
-  // This
   static filterByID(ID) {
     todoItems = this.getItems();
 
@@ -40,10 +38,24 @@ export default class UI {
         ).checked = true;
       }
     });
+    this.renderHTML(todoItems);
+  }
+
+  static renderHTML(obj) {
+    const todoList = document.querySelector('.todo_list');
+
+    if (obj) {
+      todoList.innerHTML = '';
+      obj.forEach((element) => {
+        todoList.innerHTML += ` <li data-id="${element.index}" data-valid="${element.completed}"><input type="checkbox"  class="todo_check" />
+                <input type="text" value="${element.description}"class="todo_input" />
+                <img class="trashImg" src="./trash.svg"/>
+              </li>`;
+      });
+    }
   }
 
   static displayItems() {
-    const todoList = document.querySelector('.todo_list');
     todoItems = this.getItems();
     const sortedArray = sortArray(todoItems, {
       by: 'index',
@@ -59,17 +71,8 @@ export default class UI {
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
 
     // Render HTML
-    if (todoItems) {
-      todoList.innerHTML = '';
-      todoItems.forEach((element) => {
-        todoList.innerHTML += ` <li data-id="${element.index}" data-valid="${element.completed}"><input type="checkbox"  class="todo_check" />
-                <input type="text" value="${element.description}"class="todo_input" />
-                <i class="fa-light fa-trash fa-2xl trashImg"></i>
-              </li>`;
-      });
-    }
+    this.renderHTML(todoItems);
     this.check();
-    // displayImages();
   }
 
   // This
@@ -88,7 +91,6 @@ export default class UI {
     return false;
   }
 
-  // This
   static deleteItem = (e) => {
     const dataId = e.target.parentElement.getAttribute('data-id');
     this.filterByID(dataId);
