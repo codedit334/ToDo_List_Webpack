@@ -179,6 +179,12 @@ To check for js errors run:
 - LinkedIn: [Oussama Elabdioui](https://www.linkedin.com/in/oussama-elabdioui-4677a41b6/)
 
 
+👤 Dilsher Balouch
+
+- GitHub: [@DilhserB](https://github.com/DilsherB)
+- Twitter: [@_brilliantMindz](https://twitter.com/_brilliantMindz)
+- LinkedIn: [brilliantMindz](https://linkedin.com/in/brilliantMindz)
+
 <!-- FUTURE FEATURES -->
 
 ## 🔭 Future Features <a name="future-features"></a>
