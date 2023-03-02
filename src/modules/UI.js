@@ -1,5 +1,72 @@
+/* eslint no-use-before-define: ["error", { "classes": false }] */
+
 // import displayImages from './images.js';
 import Todo from './todo.js';
+
+// UI interaction
+const formInput = document.querySelector('.data_input');
+
+// Delete item
+const deleteEvent = () => {
+  document.body.querySelectorAll('.trashImg').forEach((element) => {
+    element.addEventListener('click', (event) => {
+      UI.deleteItem(event);
+    });
+  });
+};
+
+// Change item
+const changeEvent = () => {
+  document.querySelectorAll('.todo_input').forEach((element) => {
+    element.addEventListener('change', (elm) => {
+      const newValue = elm.target.value;
+      UI.changeItem(elm, newValue);
+    });
+  });
+};
+
+// Add item
+window.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    UI.storeItem();
+    formInput.value = '';
+  }
+});
+
+// Clear completed
+const clearCompletedEvent = () => {
+  document
+    .querySelector('.clear_completed')
+    .addEventListener('click', (event) => {
+      event.preventDefault();
+      UI.clearCompleted();
+    });
+};
+
+// Make completed
+const validateEvent = () => {
+  document.querySelectorAll('.todo_check').forEach((elem) => {
+    elem.addEventListener('change', (event) => {
+      UI.validate(event);
+    });
+  });
+};
+
+// Clear All
+const clearAllEvent = () => {
+  document.querySelector('#refreshImg').addEventListener('click', () => {
+    localStorage.clear();
+    UI.displayItems();
+  });
+};
+
+function coreFlow() {
+  changeEvent();
+  deleteEvent();
+  clearCompletedEvent();
+  validateEvent();
+  clearAllEvent();
+}
 
 const sortArray = require('sort-array/dist');
 
@@ -23,18 +90,13 @@ export default class UI {
     return todoItems;
   }
 
-  static isChecked(check) {
-    if (check === true) return 'checked';
-    return 'notChecked';
-  }
-
   static check() {
     todoItems = this.getItems();
 
     todoItems.forEach((elem) => {
       if (Boolean(elem.completed) === true) {
         document.querySelector(
-          `[data-id="${elem.index}"] > .todo_check`
+          `[data-id="${elem.index}"] > .todo_check`,
         ).checked = true;
       }
     });
@@ -72,9 +134,9 @@ export default class UI {
     // Render HTML
     this.renderHTML(todoItems);
     this.check();
+    coreFlow();
   }
 
-  // This
   static storeItem() {
     const dataInput = document.querySelector('.data_input');
 
@@ -82,9 +144,10 @@ export default class UI {
       todoItems = this.getItems();
 
       const todoItem = new Todo(dataInput.value, false, todoItems.length + 1);
-
       todoItems.push(todoItem);
       localStorage.setItem('todoItems', JSON.stringify(todoItems));
+
+      UI.displayItems();
       return todoItems;
     }
     return false;
@@ -93,7 +156,7 @@ export default class UI {
   static deleteItem = (e) => {
     const dataId = e.target.parentElement.getAttribute('data-id');
     this.filterByID(dataId);
-  }
+  };
 
   static changeItem(e, val) {
     const dataId = e.target.parentElement.getAttribute('data-id');
@@ -123,7 +186,7 @@ export default class UI {
     const todoItems = this.getItems();
 
     todoItems.forEach((elem) => {
-      if (+elem.index === +dataId) (elem.completed = valid);
+      if (+elem.index === +dataId) elem.completed = valid;
     });
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
   }

@@ -1,2 +1,4 @@
 import './styles/index.css';
-import './modules/core.js';
+import UI from './modules/UI.js';
+
+UI.displayItems();
