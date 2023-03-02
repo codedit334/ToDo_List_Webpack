@@ -1,7 +1,7 @@
 // import displayImages from './images.js';
 import Todo from './todo.js';
 
-const sortArray = require("sort-array/dist");
+const sortArray = require('sort-array/dist');
 
 let todoItems = [];
 
@@ -34,7 +34,7 @@ export default class UI {
     todoItems.forEach((elem) => {
       if (elem.completed === true) {
         document.querySelector(
-          `[data-id="${elem.index}"] > .todo_check`
+          `[data-id="${elem.index}"] > .todo_check`,
         ).checked = true;
       }
     });
@@ -121,7 +121,7 @@ export default class UI {
 
     event.target.parentElement.setAttribute('data-valid', valid);
     const todoItems = this.getItems();
-    
+
     todoItems.find((elem) => {
       if (+elem.index === +dataId) (elem.completed = valid);
       return 1;

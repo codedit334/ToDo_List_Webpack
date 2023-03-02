@@ -5,14 +5,14 @@ const similateUl = () => {
   ul.className = 'todo_list';
   document.querySelector('body').appendChild(ul);
 
-  const img = document.createElement("img");
-  img.setAttribute("id", "enter");
-  document.querySelector("body").appendChild(img);
+  const img = document.createElement('img');
+  img.setAttribute('id', 'enter');
+  document.querySelector('body').appendChild(img);
 
-  const img2 = document.createElement("img");
-  img2.setAttribute("id", "refreshImg");
-  document.querySelector("body").appendChild(img2);
-}
+  const img2 = document.createElement('img');
+  img2.setAttribute('id', 'refreshImg');
+  document.querySelector('body').appendChild(img2);
+};
 
 beforeAll(() => {
   window.localStorage.clear();

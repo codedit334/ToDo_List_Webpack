@@ -61,6 +61,13 @@ HTML, CSS, NodeJS
 </details>
 
 <details>
+  <summary>Test</summary>
+  <ul>
+    <li><a href="https://jestjs.io/">Jest</a></li>
+  </ul>
+</details>
+
+<details>
 <summary>Linters</summary>
   <ul>
     <li><a href="https://webhint.io/">Webhint</a></li>
@@ -137,6 +144,8 @@ npm run build
 
 ### Run tests
 
+- ### Linter Tests
+
 To run tests, run the following command:
 
 To check for html errors run:
@@ -151,6 +160,13 @@ To check for js errors run:
 ```sh
   npx eslint .
 ```
+
+- ### Jest Tests
+
+```sh
+  npm test
+```
+
 
 <!-- AUTHORS -->
 
