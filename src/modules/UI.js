@@ -34,11 +34,10 @@ export default class UI {
     todoItems.forEach((elem) => {
       if (elem.completed === true) {
         document.querySelector(
-          `[data-id="${elem.index}"] > .todo_check`,
+          `[data-id="${elem.index}"] > .todo_check`
         ).checked = true;
       }
     });
-    this.renderHTML(todoItems);
   }
 
   static renderHTML(obj) {
