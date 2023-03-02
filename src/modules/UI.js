@@ -32,9 +32,9 @@ export default class UI {
     todoItems = this.getItems();
 
     todoItems.forEach((elem) => {
-      if (elem.completed === true) {
+      if (Boolean(elem.completed) === true) {
         document.querySelector(
-          `[data-id="${elem.index}"] > .todo_check`,
+          `[data-id="${elem.index}"] > .todo_check`
         ).checked = true;
       }
     });
@@ -122,9 +122,8 @@ export default class UI {
     event.target.parentElement.setAttribute('data-valid', valid);
     const todoItems = this.getItems();
 
-    todoItems.find((elem) => {
+    todoItems.forEach((elem) => {
       if (+elem.index === +dataId) (elem.completed = valid);
-      return 1;
     });
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
   }
