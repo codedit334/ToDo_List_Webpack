@@ -98,6 +98,8 @@ form > * {
   height: 28px;
   margin: auto;
   cursor: pointer;
+  position: relative;
+  z-index: 30000;
 }
 
 .clear_completed {
