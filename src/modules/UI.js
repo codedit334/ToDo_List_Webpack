@@ -121,11 +121,11 @@ export default class UI {
 
     event.target.parentElement.setAttribute('data-valid', valid);
     const todoItems = this.getItems();
+    
     todoItems.find((elem) => {
       if (+elem.index === +dataId) (elem.completed = valid);
       return 1;
     });
-
     localStorage.setItem('todoItems', JSON.stringify(todoItems));
   }
 
