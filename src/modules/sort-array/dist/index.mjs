@@ -346,7 +346,8 @@ var t = {
  * @returns {Array} Returns the array that was passed in.
  * @alias module:sort-array
  */
-function sortArray (arr, options = {}) {
+
+module.exports = function sortArray (arr, options = {}) {
   options = Object.assign(
     {
       computed: {},
@@ -420,4 +421,4 @@ function getCompareFunc (options = {}) {
   }
 }
 
-module.exports = sortArray;
+// module.exports = sortArray;
