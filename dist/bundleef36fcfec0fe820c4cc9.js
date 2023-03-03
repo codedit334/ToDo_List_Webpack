@@ -20,16 +20,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* eslint no-use-before-define: ["error", { "classes": false }] */
+
 // import displayImages from './images.js';
 
 
 // UI interaction
-var formInput = document.querySelector(".data_input");
+var formInput = document.querySelector('.data_input');
 
 // Delete item
 var deleteEvent = function deleteEvent() {
-  document.body.querySelectorAll(".trashImg").forEach(function (element) {
-    element.addEventListener("click", function (event) {
+  document.body.querySelectorAll('.trashImg').forEach(function (element) {
+    element.addEventListener('click', function (event) {
       UI.deleteItem(event);
     });
   });
@@ -37,8 +39,8 @@ var deleteEvent = function deleteEvent() {
 
 // Change item
 var changeEvent = function changeEvent() {
-  document.querySelectorAll(".todo_input").forEach(function (element) {
-    element.addEventListener("change", function (elm) {
+  document.querySelectorAll('.todo_input').forEach(function (element) {
+    element.addEventListener('change', function (elm) {
       var newValue = elm.target.value;
       UI.changeItem(elm, newValue);
     });
@@ -46,16 +48,16 @@ var changeEvent = function changeEvent() {
 };
 
 // Add item
-window.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
+window.addEventListener('keypress', function (event) {
+  if (event.key === 'Enter') {
     UI.storeItem();
-    formInput.value = "";
+    formInput.value = '';
   }
 });
 
 // Clear completed
 var clearCompletedEvent = function clearCompletedEvent() {
-  document.querySelector(".clear_completed").addEventListener("click", function (event) {
+  document.querySelector('.clear_completed').addEventListener('click', function (event) {
     event.preventDefault();
     UI.clearCompleted();
   });
@@ -63,8 +65,8 @@ var clearCompletedEvent = function clearCompletedEvent() {
 
 // Make completed
 var validateEvent = function validateEvent() {
-  document.querySelectorAll(".todo_check").forEach(function (elem) {
-    elem.addEventListener("change", function (event) {
+  document.querySelectorAll('.todo_check').forEach(function (elem) {
+    elem.addEventListener('change', function (event) {
       UI.validate(event);
     });
   });
@@ -72,7 +74,7 @@ var validateEvent = function validateEvent() {
 
 // Clear All
 var clearAllEvent = function clearAllEvent() {
-  document.querySelector("#refreshImg").addEventListener("click", function () {
+  document.querySelector('#refreshImg').addEventListener('click', function () {
     localStorage.clear();
     UI.displayItems();
   });
@@ -93,7 +95,7 @@ var UI = /*#__PURE__*/function () {
   _createClass(UI, null, [{
     key: "getItems",
     value: function getItems() {
-      todoItems = JSON.parse(localStorage.getItem("todoItems"));
+      todoItems = JSON.parse(localStorage.getItem('todoItems'));
       return todoItems || [];
     }
   }, {
@@ -103,7 +105,7 @@ var UI = /*#__PURE__*/function () {
       var filterTodoItems = todoItems.filter(function (element) {
         return +element.index !== +ID;
       });
-      localStorage.setItem("todoItems", JSON.stringify(filterTodoItems));
+      localStorage.setItem('todoItems', JSON.stringify(filterTodoItems));
       this.displayItems();
       return todoItems;
     }
@@ -120,11 +122,11 @@ var UI = /*#__PURE__*/function () {
   }, {
     key: "renderHTML",
     value: function renderHTML(obj) {
-      var todoList = document.querySelector(".todo_list");
+      var todoList = document.querySelector('.todo_list');
       if (obj) {
-        todoList.innerHTML = "";
+        todoList.innerHTML = '';
         obj.forEach(function (element) {
-          todoList.innerHTML += " <li data-id=\"".concat(element.index, "\" data-valid=\"").concat(element.completed, "\"><input type=\"checkbox\"  class=\"todo_check\" />\n                <input type=\"text\" value=\"").concat(element.description, "\"class=\"todo_input\" />\n                <img class=\"trashImg\" src=\"./trash.svg\"/>\n              </li>");
+          todoList.innerHTML += " <li data-id=\"".concat(element.index, "\" data-valid=\"").concat(element.completed, "\"><input type=\"checkbox\"  class=\"todo_check\" />\n                <input type=\"text\" value=\"").concat(element.description, "\"class=\"todo_input\" />\n                <i class=\"fa-regular fa-trash-can fa-2xl trashImg\"></i>\n              </li>");
         });
       }
     }
@@ -133,7 +135,7 @@ var UI = /*#__PURE__*/function () {
     value: function displayItems() {
       todoItems = this.getItems();
       var sortedArray = sortArray(todoItems, {
-        by: "index"
+        by: 'index'
       });
       todoItems = sortedArray;
 
@@ -143,7 +145,7 @@ var UI = /*#__PURE__*/function () {
         todoItems[i].index = count;
         count += 1;
       }
-      localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      localStorage.setItem('todoItems', JSON.stringify(todoItems));
 
       // Render HTML
       this.renderHTML(todoItems);
@@ -153,12 +155,12 @@ var UI = /*#__PURE__*/function () {
   }, {
     key: "storeItem",
     value: function storeItem() {
-      var dataInput = document.querySelector(".data_input");
+      var dataInput = document.querySelector('.data_input');
       if (dataInput.value.length > 0) {
         todoItems = this.getItems();
         var todoItem = new _todo_js__WEBPACK_IMPORTED_MODULE_0__["default"](dataInput.value, false, todoItems.length + 1);
         todoItems.push(todoItem);
-        localStorage.setItem("todoItems", JSON.stringify(todoItems));
+        localStorage.setItem('todoItems', JSON.stringify(todoItems));
         UI.displayItems();
         return todoItems;
       }
@@ -167,12 +169,12 @@ var UI = /*#__PURE__*/function () {
   }, {
     key: "changeItem",
     value: function changeItem(e, val) {
-      var dataId = e.target.parentElement.getAttribute("data-id");
+      var dataId = e.target.parentElement.getAttribute('data-id');
       todoItems = this.getItems();
       todoItems.forEach(function (elm) {
         if (+elm.index === +dataId) elm.description = val;
       });
-      localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      localStorage.setItem('todoItems', JSON.stringify(todoItems));
       this.displayItems();
     }
   }, {
@@ -182,25 +184,25 @@ var UI = /*#__PURE__*/function () {
       todoItems = todoItems.filter(function (elem) {
         return elem.completed !== true;
       });
-      localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      localStorage.setItem('todoItems', JSON.stringify(todoItems));
       this.displayItems();
     }
   }, {
     key: "validateByID",
     value: function validateByID(valid, event) {
-      var dataId = event.target.parentElement.getAttribute("data-id");
-      event.target.parentElement.setAttribute("data-valid", valid);
+      var dataId = event.target.parentElement.getAttribute('data-id');
+      event.target.parentElement.setAttribute('data-valid', valid);
       var todoItems = this.getItems();
       todoItems.forEach(function (elem) {
         if (+elem.index === +dataId) elem.completed = valid;
       });
-      localStorage.setItem("todoItems", JSON.stringify(todoItems));
+      localStorage.setItem('todoItems', JSON.stringify(todoItems));
     }
   }, {
     key: "validate",
     value: function validate(event) {
-      var isValid = event.target.parentElement.getAttribute("data-valid");
-      if (isValid === "false") {
+      var isValid = event.target.parentElement.getAttribute('data-valid');
+      if (isValid === 'false') {
         this.validateByID(true, event);
       } else this.validateByID(false, event);
     }
@@ -210,7 +212,7 @@ var UI = /*#__PURE__*/function () {
   return UI;
 }();
 _defineProperty(UI, "deleteItem", function (e) {
-  var dataId = e.target.parentElement.getAttribute("data-id");
+  var dataId = e.target.parentElement.getAttribute('data-id');
   UI.filterByID(dataId);
 });
 
@@ -1308,4 +1310,4 @@ _modules_UI_js__WEBPACK_IMPORTED_MODULE_1__["default"].displayItems();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundlef39c55b80736e99680b1.js.map
+//# sourceMappingURL=bundleef36fcfec0fe820c4cc9.js.map
