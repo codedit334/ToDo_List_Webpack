@@ -53,6 +53,9 @@ form h1 {
   height: 25px;
   width: 25px;
   align-self: center;
+  position: relative;
+  top: 12px;
+  right: 12px;
 }
 
 .data_input {
@@ -100,6 +103,7 @@ form > * {
   cursor: pointer;
   position: relative;
   z-index: 30000;
+  top: 10px;
 }
 
 .clear_completed {
@@ -120,6 +124,7 @@ form > * {
 #refreshImg {
   position: relative;
   z-index: 30000;
+  right: 12px;
 }
 
 /* Linter */
