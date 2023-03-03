@@ -110,7 +110,7 @@ export default class UI {
       obj.forEach((element) => {
         todoList.innerHTML += ` <li data-id="${element.index}" data-valid="${element.completed}"><input type="checkbox"  class="todo_check" />
                 <input type="text" value="${element.description}"class="todo_input" />
-                <i class="fa-regular fa-trash-can fa-2xl trashImg"></i>
+                <i class="fa-regular fa-trash-can fa-xl trashImg"></i>
               </li>`;
       });
     }
