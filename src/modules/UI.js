@@ -1,6 +1,5 @@
 /* eslint no-use-before-define: ["error", { "classes": false }] */
 
-// import displayImages from './images.js';
 import Todo from './todo.js';
 
 // UI interaction
