@@ -1,4 +1,4 @@
-import UI from './UI';
+import UI from '../UI.js';
 
 const simulateLi = () => {
   const ul = document.createElement('ul');
@@ -17,9 +17,20 @@ const simulateLi = () => {
   document.querySelector('.test_todo_input').appendChild(input);
 };
 
+const simulateButton = () => {
+  const button = document.createElement('button');
+  button.className = 'clear_completed';
+  document.querySelector('body').appendChild(button);
+
+  const refresh = document.createElement('button');
+  refresh.setAttribute("id", "refreshImg");
+  document.querySelector('body').appendChild(refresh);
+}
+
 beforeAll(() => {
   window.localStorage.clear();
   simulateLi();
+  simulateButton();
 });
 
 test('change item', () => {

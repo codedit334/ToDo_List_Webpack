@@ -1,4 +1,4 @@
-import UI from './UI.js';
+import UI from '../UI.js';
 
 const simulateUl = () => {
   const ul = document.createElement('ul');
@@ -6,9 +6,20 @@ const simulateUl = () => {
   document.querySelector('body').appendChild(ul);
 };
 
+const simulateButton = () => {
+  const button = document.createElement('button');
+  button.className = 'clear_completed';
+  document.querySelector('body').appendChild(button);
+
+  const refresh = document.createElement('button');
+  refresh.setAttribute("id", "refreshImg");
+  document.querySelector('body').appendChild(refresh);
+}
+
 beforeAll(() => {
   window.localStorage.clear();
   simulateUl();
+  simulateButton();
 });
 
 it('Clear Completed', () => {

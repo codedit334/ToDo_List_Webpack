@@ -1,4 +1,4 @@
-import UI from './UI.js';
+import UI from '../UI.js';
 
 const simulateLi = () => {
   const li = document.createElement('li');
