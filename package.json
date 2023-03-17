@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --env=jsdom",
-    "build": "webpack",
-    "dev": "webpack serve"
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development",
+    "start": "webpack serve --open"
   },
   "keywords": [],
   "author": "",
