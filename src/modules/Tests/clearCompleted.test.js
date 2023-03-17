@@ -12,9 +12,9 @@ const simulateButton = () => {
   document.querySelector('body').appendChild(button);
 
   const refresh = document.createElement('button');
-  refresh.setAttribute("id", "refreshImg");
+  refresh.setAttribute('id', 'refreshImg');
   document.querySelector('body').appendChild(refresh);
-}
+};
 
 beforeAll(() => {
   window.localStorage.clear();
